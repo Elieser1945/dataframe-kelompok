@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Badminton Match Scoreboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>Badminton Match Scoreboard</h1>
+      <p class="tagline">Track points, sets, and momentum in real time.</p>
+    </header>
+
+    <main class="wrapper" aria-live="polite">
+      <section class="match-settings" aria-label="Match configuration">
+        <div class="team-config">
+          <h2>Team Details</h2>
+          <form class="team-form" id="team-form" autocomplete="off">
+            <div class="field-group">
+              <label for="team-a-name">Team A Name</label>
+              <input type="text" id="team-a-name" name="team-a-name" maxlength="24" placeholder="Team A" />
+            </div>
+            <div class="field-group">
+              <label for="team-b-name">Team B Name</label>
+              <input type="text" id="team-b-name" name="team-b-name" maxlength="24" placeholder="Team B" />
+            </div>
+            <div class="field-group">
+              <label for="best-of">Match Length</label>
+              <select id="best-of" name="best-of">
+                <option value="3">Best of 3 Games</option>
+                <option value="5">Best of 5 Games</option>
+              </select>
+            </div>
+            <button type="submit" class="primary">Apply Settings</button>
+          </form>
+        </div>
+        <div class="match-summary" aria-live="polite">
+          <h2>Match Progress</h2>
+          <p><strong>Target:</strong> First to <span id="target-games">2</span> games</p>
+          <p><strong>Status:</strong> <span id="match-status">Match ready</span></p>
+          <div class="set-history" aria-label="Completed games">
+            <h3>Game History</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Game</th>
+                  <th scope="col" id="game-label-a">Team A</th>
+                  <th scope="col" id="game-label-b">Team B</th>
+                  <th scope="col">Winner</th>
+                </tr>
+              </thead>
+              <tbody id="set-history-body">
+                <tr class="empty">
+                  <td colspan="4">No games completed yet.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="scoreboard" aria-label="Live scoreboard">
+        <div class="team-panel" data-team="a" aria-describedby="match-status">
+          <div class="panel-header">
+            <span class="team-name" id="display-team-a">Team A</span>
+            <span class="serve-indicator" id="serve-indicator-a" aria-hidden="true">Serving</span>
+          </div>
+          <div class="score"> <span id="score-a">0</span> </div>
+          <div class="panel-footer">
+            <div class="game-count"><span id="games-a">0</span> games</div>
+            <div class="controls" aria-label="Controls for Team A">
+              <button type="button" class="score-btn" data-team="a" data-direction="up" aria-label="Add point to Team A">+1</button>
+              <button type="button" class="score-btn" data-team="a" data-direction="down" aria-label="Remove point from Team A">−1</button>
+            </div>
+            <button type="button" class="serve-toggle" data-team="a" aria-label="Give serve to Team A">Serve</button>
+          </div>
+        </div>
+
+        <div class="center-panel" aria-hidden="true">
+          <div class="game-point" id="game-point-banner">Game Point</div>
+          <div class="match-point" id="match-point-banner">Match Point</div>
+        </div>
+
+        <div class="team-panel" data-team="b" aria-describedby="match-status">
+          <div class="panel-header">
+            <span class="team-name" id="display-team-b">Team B</span>
+            <span class="serve-indicator" id="serve-indicator-b" aria-hidden="true">Serving</span>
+          </div>
+          <div class="score"> <span id="score-b">0</span> </div>
+          <div class="panel-footer">
+            <div class="game-count"><span id="games-b">0</span> games</div>
+            <div class="controls" aria-label="Controls for Team B">
+              <button type="button" class="score-btn" data-team="b" data-direction="up" aria-label="Add point to Team B">+1</button>
+              <button type="button" class="score-btn" data-team="b" data-direction="down" aria-label="Remove point from Team B">−1</button>
+            </div>
+            <button type="button" class="serve-toggle" data-team="b" aria-label="Give serve to Team B">Serve</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="action-bar" aria-label="Match controls">
+        <button type="button" class="secondary" id="undo-last" aria-label="Undo last action">Undo</button>
+        <button type="button" class="secondary" id="reset-game" aria-label="Reset current game scores">Reset Game</button>
+        <button type="button" class="danger" id="reset-match" aria-label="Reset entire match">Reset Match</button>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <p>Badminton scoring follows BWF rally point system. First to 21 with a 2-point lead (cap at 30).</p>
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
